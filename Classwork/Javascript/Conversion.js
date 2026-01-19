@@ -18,6 +18,23 @@ let b = "aa"
 let bconvert = String(b);
 console.log(typeof (bconvert));
 
+let c = true
+let cconvert = Number(c);
+console.log(typeof (cconvert));
+console.log(cconvert); // true = 1 , false = 0
+console.log();
+
+let d = null
+let dconvert = Number(d);
+console.log(typeof (dconvert));
+console.log(dconvert);
+
+let e = undefined
+let econvert = Number(e);   
+console.log(typeof (econvert));
+console.log(econvert);  // undefined will return NaN when converted to number
+console.log();
+
 
 //Activit 1 : Null,Boolean,Undefined to Number , Arithmetic Operations ,
               
