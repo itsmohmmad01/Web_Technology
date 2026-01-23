@@ -31,5 +31,24 @@ let str5 = "Hello";
 str5[0] = "h"; //this will not change the string
 console.log(str5); //still "Hello"
 console.log()
-
+// all string methods examples
+console.log("JavaScript".includes("Script")); //true
+console.log("JavaScript".startsWith("Java"));
+console.log("JavaScript".endsWith("Script"));
+console.log("JavaScript".repeat(3));
+console.log("   Trim me   ".trim());
+console.log("Slice Example".slice(0,5));
+console.log("Substring Example".substring(0,9));
+console.log("Replace Example".replace("Example", "Demo"));
+console.log("Split Example".split(" "));
+console.log("toUpperCase Example".toUpperCase());
+console.log("toLowerCase Example".toLowerCase());
+console.log("Char at index 2".charAt(2));
+console.log("Index of 'e'".indexOf('e'));
+console.log("Last index of 'e'".lastIndexOf('e'));
+console.log("Concatenation ".concat("Example"));
+console.log("Length Example".length);
+console.log("Char code at index 2".charCodeAt(2));  
+console.log("From char code 65,66,67".fromCharCode(65,66,67));
+console.log()
 
