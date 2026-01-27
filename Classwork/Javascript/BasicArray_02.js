@@ -30,3 +30,5 @@ let Score1 =100
 let Score2 =200
 let Score3 =300
 console.log(Array.of(Score1, Score2, Score3)); // creates an array from the given elements
+
+
