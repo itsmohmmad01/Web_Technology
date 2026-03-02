@@ -72,3 +72,4 @@ fetchWeather("New York").then((data) => {
     console.log("error fetching weather data",error);
 }); 
 
+//2.

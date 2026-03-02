@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e73df, #1cc88a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #quizContainer {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            position: absolute;
+            top: 30px;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2e59d9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>JavaScript Quiz App</h2>
+
+    <div id="quizContainer">
+        <h3 id="question"></h3>
+
+        <input type="radio" name="option" value="0"> <span id="opt0"></span><br><br>
+        <input type="radio" name="option" value="1"> <span id="opt1"></span><br><br>
+        <input type="radio" name="option" value="2"> <span id="opt2"></span><br><br>
+        <input type="radio" name="option" value="3"> <span id="opt3"></span><br><br>
+
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

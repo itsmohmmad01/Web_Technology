@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Events Demo</title>
+
+    <style>
+        body {
+            background-color: #414141;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 15px;
+        }
+
+        img {
+            width: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        a {
+            color: lightblue;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Amazing Images (Click to Remove)</h2>
+
+    <ul id="images">
+        <li>
+            <img id="photoshop"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
+                alt="Photoshop Logo">
+        </li>
+
+        <li>
+            <img id="japan"
+                src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+                onclick="alert('hi')"
+                alt="Mount Fuji">
+                <!-- these is not good way , html should contain structure , hard to maintain , can be done in basic project -->
+        </li>
+
+        <li>
+            <img id="Nature"
+                src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b"
+                alt="Nature Image">
+        </li>
+
+        <li>
+            <img id="photoman"
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+                alt="Photographer">
+        </li>
+
+        <li>
+            <img id="tiger"
+                src="https://images.unsplash.com/photo-1546182990-dffeafbe841d"
+                alt="Tiger">
+        </li>
+
+        <li>
+            <a href="https://google.com" id="google">Visit Google</a>
+        </li>
+    </ul>
+  </body>
+  <script>
+    document.getElementById("japan").onclick=function(){
+           alert('hi')
+    }
+    document.getElementById("tiger").onclick=function(){
+           alert('Kay re bhai')
+    }// Select element, assingn function to click event , then click function , and then run
+    document.getElementById("tiger").addEventListener('click',function(e){
+           console.log(e)
+    })
+    document.getElementById("tiger").addEventListener('click',function(){
+           console.log("clinking inside ul")
+    },true)
+     document.getElementById("photoman").addEventListener('click',function(){
+           console.log("clinking inside ul")
+    },true)
+    document.getElementById("google").addEventListener('click',function(e){
+              console.log("Google clicked")
+              e.preventDefault()
+    })
+    //Event propagation: Event bubbly
+    //If there is true both elenment then it is inner element to padding if potoman click cliking the uls
+  </script>
+  </html>
+
+<!-- What is event -->
+<!-- Event is an action that occurs in the browser -->
+<!-- example clicking button , moving buttons , pressing key, moving mouse, submitting the form, loading pages  -->
+<!-- Jvascript can detet these event and respond to it -->
+ <!--Types of event  -->
+ <!-- There are 3 types of event -->
+<!-- mouse event :click ,dblclick ,mouseover,mouseout -->
+ <!-- keyboard event: keyup,keydown -->
+  <!-- browser event:load,unload,resize,scroll -->
+   
+
+  <!-- Home Assignment ,, J query uses,,types,,typesstamp,,default prvented,target,sourceelemnt , currct tag , client x, client y,screen x , screen y ,alt key ,ctrl key , shift key-->
+   <!-- add event listner is the javascript method used to attach the evnt handdle to an html elements so that specific function runs when evnent occurs -->
+
+
+   <!-- home activity -->
+    //j query uses
+    //types 
+    //typesstamp
+    //default prvented
+    // code
+    //target
+    //sourceelemnt
+
+    

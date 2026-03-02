@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Order System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            display: flex;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .container {
+            background: white;
+            width: 650px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input {
+            padding: 8px;
+            margin: 5px 0 10px 0;
+            width: 100%;
+        }
+
+        button {
+            padding: 8px 12px;
+            background: #ff5e62;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #e04848;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #ff5e62;
+            color: white;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .removeBtn {
+            background: red;
+        }
+
+        .removeBtn:hover {
+            background: darkred;
+        }
+
+        .total {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: right;
+        }
+
+        .printBtn {
+            background: green;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .printBtn:hover {
+            background: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Food Order System</h2>
+
+    <label>Select Food:</label>
+    <select id="foodItem">
+        <option value="100">Burger - ₹100</option>
+        <option value="150">Pizza - ₹150</option>
+        <option value="80">Sandwich - ₹80</option>
+        <option value="50">Cold Drink - ₹50</option>
+    </select>
+
+    <label>Quantity:</label>
+    <input type="number" id="quantity" value="1" min="1">
+
+    <button onclick="addToCart()">Add to Cart</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Food</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody id="cartTable"></tbody>
+    </table>
+
+    <div class="total">
+        Grand Total: ₹<span id="grandTotal">0</span>
+    </div>
+
+    <button class="printBtn" onclick="printBill()">Print Bill</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
