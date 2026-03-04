@@ -8,7 +8,10 @@
 //npm is the tool to install packages or libraries from the node js ecosystem
 
 //what is package.json
+//package.json is a file that contains information about the node.js project, including its name, version, dependencies, and scripts.
 //diffrence between package.json and package-lock.json
+//package.json contains the project's metadata and dependencies.
+//package-lock.json contains the exact versions of all dependencies and their sub-dependencies.
 
 //see all http types with real time example
 
