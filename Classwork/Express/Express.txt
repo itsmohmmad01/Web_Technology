@@ -1,0 +1,5 @@
+Express is a minimal and flexible web application of nodejs that the development of web server and api.
+Express Feature are routing middleware support request and response handling Rest api creation template rendring.
+npm means node package manager
+Activity 1 Difference between package.json and package-lock.json
+Activity 2 Diff Bet dev dependciec and dependice
