@@ -1,0 +1,41 @@
+Package.json is config file.Information about your project.
+Package.lock.json is config file contain detail Information.
+Angular.json is project config file.
+Style.css use for giving global css.
+Git ingonre it is an version control file.
+Editor config
+Index html is main html file which load angular.
+Main.ts entry file.
+App config ts it is an app config file.
+
+There are two type of datatypes
+Primitve and Non Primitive.
+
+Components is the UI blocks of structure where we create componenets . the compo create four file html ,css ,spec.ts and ts.
+when we create the command it "ng generate component component_name".and "ng g c c_name".
+Spec.ts is used for unit testing.
+
+
+Data Binding is a technique to connect data between the Component (TypeScript) and the View (HTML).
+
+There are 4 types of Data Binding in Angular:
+
+1. INTERPOLATION (One-way binding: TS → HTML)
+Used to display data from component to view.
+Syntax:
+{{ variableName }}
+
+2. PROPERTY BINDING (One-way binding: TS → HTML)
+Used to bind data to HTML element properties.
+Syntax:
+[property]="variableName"
+
+3. EVENT BINDING (One-way binding: HTML → TS)
+Used to handle events from the UI.
+Syntax:
+(event)="functionName()"
+
+4. TWO-WAY BINDING (TS ↔ HTML)
+Used for both input and output together.
+Syntax:
+[(ngModel)]="variableName"
