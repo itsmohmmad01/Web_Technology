@@ -1,0 +1,9 @@
+<h2>Add Student</h2>
+
+<form (ngSubmit)="addStudent(name.value, age.value, course.value)">
+  <input #name placeholder="Name" required>
+  <input #age placeholder="Age" required>
+  <input #course placeholder="Course" required>
+
+  <button type="submit">Add</button>
+</form>

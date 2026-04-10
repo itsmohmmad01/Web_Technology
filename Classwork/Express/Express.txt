@@ -3,3 +3,27 @@ Express Feature are routing middleware support request and response handling Res
 npm means node package manager
 Activity 1 Difference between package.json and package-lock.json
 Activity 2 Diff Bet dev dependciec and dependice
+
+
+ Middleware is a function that runs before sending the response.
+ It can check data, log info, and authenticate users. 
+ Middle ware flow:
+ client request->middleware->route handler->response
+
+ function checkout(req,res,next)=>{
+    console.log(req.url)
+ }
+
+ Activity:
+ what is widdleare function and why we use 
+ middlewre function in copany level
+ what is type of middleware 
+ write 2 or 3 examples of middleware function
+ write 2 or 4 examples of query parameter
+ understand what is the query parameters 
+ why we use query parameters 
+ where we use it in company level
+
+ Activtiy: 
+ .Build a small project for creating  user api  having feature like add user in these we want to add the user , get user in these we wnat to see he user  , update user in these update the user, a delete user and delete user, in express js
+ .create login api 
