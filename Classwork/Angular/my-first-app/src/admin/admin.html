@@ -1,2 +1,32 @@
-<p>admin works!</p>
-{{fname}}
+<div class="container">
+
+  <h2>Admin Form</h2>
+
+  <!-- Name -->
+  <label>Name:</label>
+  <input type="text" [(ngModel)]="name" placeholder="Enter name">
+  <br><br>
+
+  <!-- Age -->
+  <label>Age:</label>
+  <input type="number" [(ngModel)]="age" placeholder="Enter age">
+  <br><br>
+
+  <!-- Courses -->
+  <label>Courses:</label>
+  <input type="text" [(ngModel)]="courses" placeholder="Enter courses">
+  <br><br>
+
+  <!-- Event Binding Button -->
+  <button (click)="showData()">Submit</button>
+
+  <hr>
+
+  <h3>Preview (Data Binding Output)</h3>
+
+  <!-- Interpolation -->
+  <p><b>Name:</b> {{name}}</p>
+  <p><b>Age:</b> {{age}}</p>
+  <p><b>Courses:</b> {{courses}}</p>
+
+</div>

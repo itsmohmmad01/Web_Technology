@@ -1,0 +1,186 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    width: 480px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #023e8a;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: #e9ecef;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tabs button:hover {
+    background: #adb5bd;
+}
+
+/* Active tab effect (optional future) */
+.tabs button.active {
+    background: #0077b6;
+    color: white;
+}
+
+/* Form */
+label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.2s;
+}
+
+select:focus, input:focus {
+    border-color: #0077b6;
+    outline: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Dashboard */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.card {
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.total { background: #6c757d; }
+.waiting { background: #f77f00; }
+.treatment { background: #0077b6; }
+.completed { background: #2a9d8f; }
+
+/* Search */
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Patient Card */
+.appointment {
+    background: #f8f9fa;
+    border-left: 6px solid #0077b6;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    animation: slideUp 0.4s ease;
+    transition: 0.3s;
+}
+
+.appointment:hover {
+    transform: scale(1.02);
+}
+
+/* Status */
+.waiting { color: #f77f00; font-weight: bold; }
+.treatment { color: #0077b6; font-weight: bold; }
+.completed { color: #2a9d8f; font-weight: bold; }
+
+/* Buttons inside card */
+.appointment button {
+    width: auto;
+    padding: 6px 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .container {
+        width: 95%;
+    }
+}

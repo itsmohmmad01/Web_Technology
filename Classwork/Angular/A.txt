@@ -39,3 +39,9 @@ Syntax:
 Used for both input and output together.
 Syntax:
 [(ngModel)]="variableName"
+
+
+
+Activit 1:
+.What is ng if else 
+.how we can use if else and switch cse in angular

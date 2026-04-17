@@ -1,0 +1,28 @@
+<div class="container">
+
+  <h2>Student Form</h2>
+
+  <!-- Two-way binding -->
+  <input type="text" [(ngModel)]="name" placeholder="Enter Name">
+  <input type="number" [(ngModel)]="age" placeholder="Enter Age">
+  <input type="text" [(ngModel)]="course" placeholder="Enter Course">
+
+  <!-- Event binding -->
+  <button (click)="addStudent()">Add Student</button>
+
+  <hr>
+
+  <h2>Student List</h2>
+
+  <!-- Property binding -->
+  <p [hidden]="students.length === 0">Student Records:</p>
+
+  <ul>
+    <li *ngFor="let s of students; let i = index">
+      {{ s.name }} - {{ s.age }} - {{ s.course }}
+
+      <button (click)="deleteStudent(i)">Delete</button>
+    </li>
+  </ul>
+
+</div>

@@ -4,7 +4,8 @@ import { Admin } from '../admin/admin';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Admin],
+  standalone: true,
+  imports: [RouterOutlet, Admin],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
