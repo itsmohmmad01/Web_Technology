@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>👨‍🏫 Teacher Dashboard</h1>
+  <p style="color:#94a3b8; font-size:13px;">
+    QR Attendance Management System
+  </p>
+
+  <div style="margin-top:15px;">
+    <h3>📌 Generate QR Code</h3>
+
+    <select id="subject">
+      <option value="DBMS">DBMS</option>
+      <option value="OS">Operating System</option>
+      <option value="CN">Computer Networks</option>
+    </select>
+
+    <button onclick="generateQR()">Generate QR</button>
+
+    <div id="qrcode"></div>
+  </div>
+
+  <hr style="margin:20px 0; border:1px solid #374151;">
+
+  <div>
+    <h3>📂 Filter Attendance</h3>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:10px;">
+      <button onclick="filterSubject('ALL')">ALL</button>
+      <button onclick="filterSubject('DBMS')">DBMS</button>
+      <button onclick="filterSubject('OS')">OS</button>
+      <button onclick="filterSubject('CN')">CN</button>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;">
+    <h3>📋 Attendance Records</h3>
+
+    <ul id="list"></ul>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

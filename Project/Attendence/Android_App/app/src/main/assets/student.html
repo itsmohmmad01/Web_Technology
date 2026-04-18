@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mark Attendance</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🎓 Student Attendance</h1>
+  <p style="color:#94a3b8; font-size:13px;">
+    Scan QR & mark your attendance
+  </p>
+
+  <div style="margin:15px 0; padding:10px; background:#1f2937; border-radius:10px;">
+    <h3 id="subjectText">Subject: Loading...</h3>
+  </div>
+
+  <div style="margin-top:10px;">
+    <input type="text" id="name" placeholder="Enter Your Full Name">
+
+    <button onclick="markAttendance()">Submit Attendance</button>
+
+    <h3 id="msg"></h3>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  document.getElementById("subjectText").innerText =
+    "📘 Subject: " + (urlParams.get("subject") || "Unknown");
+</script>
+
+</body>
+</html>
