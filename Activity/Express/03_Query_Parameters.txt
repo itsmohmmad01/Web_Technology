@@ -1,0 +1,158 @@
+=========================================================
+  QUERY PARAMETERS IN EXPRESS
+=========================================================
+
+---------------------------------------------------------
+1. What are Query Parameters?
+---------------------------------------------------------
+
+Query parameters are key-value pairs added to a URL after a `?` symbol.
+They are used to FILTER, SORT, SEARCH, or PAGINATE data without changing
+the route path itself.
+
+URL structure:
+  https://example.com/products?key1=value1&key2=value2
+
+  - `?`  → marks the beginning of query parameters
+  - `&`  → separates multiple parameters
+  - `=`  → separates a key from its value
+
+In Express, query parameters are accessed via:
+  req.query
+
+
+---------------------------------------------------------
+2. Detailed Study of Query Parameters
+---------------------------------------------------------
+
+How to read them in Express:
+
+  app.get('/products', (req, res) => {
+    console.log(req.query); // { category: 'shoes', price: '500' }
+    const { category, price } = req.query;
+    res.json({ category, price });
+  });
+
+  URL: GET /products?category=shoes&price=500
+  Output: { category: "shoes", price: "500" }
+
+Key points:
+  - Values are always STRINGS by default — convert if needed:
+      const page = parseInt(req.query.page) || 1;
+
+  - Query params are OPTIONAL — your route still works without them.
+
+  - They do NOT affect the route path — unlike URL params (req.params).
+
+  - Multiple values with same key:
+      URL: /items?color=red&color=blue
+      req.query.color → ['red', 'blue']  (array)
+
+Difference: Query Params vs URL Params (Route Params):
+  | Feature           | Query Param (?key=val)      | URL Param (/users/:id)    |
+  |-------------------|-----------------------------|---------------------------|
+  | Optional?         | Yes                         | Usually No                |
+  | Access via        | req.query.key               | req.params.id             |
+  | Use case          | Filter, search, pagination  | Identify specific resource|
+  | Example           | /users?role=admin           | /users/42                 |
+
+
+---------------------------------------------------------
+3. Examples of Query Parameters (3-4 Examples)
+---------------------------------------------------------
+
+EXAMPLE 1 — Search/Filter:
+  URL: GET /products?category=electronics&brand=samsung
+  
+  app.get('/products', (req, res) => {
+    const { category, brand } = req.query;
+    // Filter products from DB where category=electronics AND brand=samsung
+    res.json({ message: `Showing ${brand} products in ${category}` });
+  });
+
+
+EXAMPLE 2 — Pagination:
+  URL: GET /users?page=2&limit=10
+  
+  app.get('/users', (req, res) => {
+    const page  = parseInt(req.query.page)  || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip  = (page - 1) * limit;
+    // Fetch from DB: skip 10 records, take next 10
+    res.json({ page, limit, skip });
+  });
+
+
+EXAMPLE 3 — Sorting:
+  URL: GET /products?sortBy=price&order=asc
+  
+  app.get('/products', (req, res) => {
+    const { sortBy, order } = req.query;
+    // Sort products by 'price' in 'asc' order from DB
+    res.json({ message: `Sorted by ${sortBy} in ${order} order` });
+  });
+
+
+EXAMPLE 4 — Search with keyword:
+  URL: GET /posts?search=nodejs&category=tutorial
+  
+  app.get('/posts', (req, res) => {
+    const { search, category } = req.query;
+    // Query DB for posts containing 'nodejs' in category 'tutorial'
+    res.json({ search, category });
+  });
+
+
+---------------------------------------------------------
+4. Real-Time Use of Query Parameters
+---------------------------------------------------------
+
+Query parameters are everywhere in real production apps:
+
+  1. E-Commerce (Amazon, Flipkart):
+     - Filter products: ?category=laptops&brand=dell&price_max=50000
+     - Sort: ?sort=rating&order=desc
+     - Pagination: ?page=3&limit=20
+
+  2. Search Engines (Google):
+     - google.com/search?q=express+js+tutorial
+
+  3. YouTube:
+     - youtube.com/watch?v=dQw4w9WgXcQ
+       (v = video ID as a query param!)
+
+  4. Social Media / News Feeds:
+     - Filter by date: ?from=2024-01-01&to=2024-12-31
+     - Filter by type: ?type=video
+
+  5. Authentication (OAuth):
+     - Redirect URLs include: ?code=abc123&state=xyz
+     - Used in Google/GitHub login flows
+
+  6. Analytics & Tracking:
+     - UTM parameters: ?utm_source=newsletter&utm_campaign=summer_sale
+     - Used to track where website traffic comes from
+
+  7. API Versioning / Feature Flags:
+     - ?version=2&lang=en
+
+Real express example combining all:
+
+  app.get('/api/products', (req, res) => {
+    const {
+      category = 'all',
+      brand    = '',
+      page     = 1,
+      limit    = 10,
+      sortBy   = 'createdAt',
+      order    = 'desc',
+      search   = ''
+    } = req.query;
+
+    // Build DB query based on these params
+    res.json({ category, brand, page: +page, limit: +limit, sortBy, order, search });
+  });
+
+  URL: GET /api/products?category=phones&brand=apple&page=1&limit=5&sortBy=price&order=asc
+
+=========================================================

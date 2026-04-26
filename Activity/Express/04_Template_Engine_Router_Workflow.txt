@@ -1,0 +1,294 @@
+=========================================================
+  TEMPLATE ENGINE, STATIC FILES, ROUTER & EXPRESS WORKFLOW
+=========================================================
+
+---------------------------------------------------------
+1. Implement EJS (Embedded JavaScript Templates)
+---------------------------------------------------------
+
+EJS lets you render dynamic HTML pages from the server by embedding
+JavaScript directly inside HTML.
+
+STEP 1 — Install EJS:
+  npm install ejs
+
+STEP 2 — Set EJS as the template engine in app.js:
+
+  const express = require('express');
+  const app = express();
+
+  app.set('view engine', 'ejs');       // Tell Express to use EJS
+  app.set('views', './views');         // Folder where .ejs files are stored
+
+STEP 3 — Create a views folder and an EJS file:
+
+  views/index.ejs:
+  ----------------
+  <!DOCTYPE html>
+  <html>
+  <head><title><%= title %></title></head>
+  <body>
+    <h1>Hello, <%= name %>!</h1>
+
+    <ul>
+      <% products.forEach(product => { %>
+        <li><%= product %></li>
+      <% }); %>
+    </ul>
+  </body>
+  </html>
+
+STEP 4 — Render the view from a route:
+
+  app.get('/', (req, res) => {
+    res.render('index', {
+      title: 'Home Page',
+      name: 'Rahul',
+      products: ['Laptop', 'Phone', 'Tablet']
+    });
+  });
+
+  app.listen(3000);
+
+EJS Tags explained:
+  | Tag         | Purpose                                          |
+  |-------------|--------------------------------------------------|
+  | <%= value %>| Output (escaped) — shows value in HTML           |
+  | <%- value %>| Output (unescaped) — renders raw HTML            |
+  | <% code %>  | Scriptlet — runs JS (if, for, forEach, etc.)     |
+  | <%# ... %>  | Comment — not rendered in output                 |
+
+Full folder structure for EJS project:
+  project/
+  ├── app.js
+  ├── views/
+  │   ├── index.ejs
+  │   ├── about.ejs
+  │   └── partials/
+  │       ├── header.ejs
+  │       └── footer.ejs
+  └── public/
+      ├── css/
+      │   └── style.css
+      └── images/
+
+
+---------------------------------------------------------
+2. What are Static Files?
+---------------------------------------------------------
+
+Static files are files that do NOT change based on requests.
+They are served DIRECTLY to the client without any processing.
+
+Examples of static files:
+  - CSS files (style.css)
+  - JavaScript files (script.js)
+  - Images (logo.png, banner.jpg)
+  - Fonts
+  - HTML files (if not rendered via template engine)
+  - Downloadable files (PDF, ZIP)
+
+How to serve static files in Express:
+
+  // Tell Express to serve everything in the 'public' folder as static
+  app.use(express.static('public'));
+
+  Folder structure:
+    public/
+    ├── css/style.css
+    ├── js/app.js
+    └── images/logo.png
+
+  Now these URLs work automatically:
+    http://localhost:3000/css/style.css
+    http://localhost:3000/images/logo.png
+
+  In your EJS file, link them like normal HTML:
+    <link rel="stylesheet" href="/css/style.css">
+    <img src="/images/logo.png" alt="Logo">
+
+Serving from a virtual path prefix:
+
+  app.use('/static', express.static('public'));
+  // URL becomes: http://localhost:3000/static/css/style.css
+
+Multiple static directories:
+
+  app.use(express.static('public'));
+  app.use(express.static('uploads'));  // Also serves files from uploads/
+
+
+---------------------------------------------------------
+3. What is Express Router?
+---------------------------------------------------------
+
+Express Router is a mini Express application — it handles routes
+independently and can be mounted on the main app.
+
+WHY use Router?
+  - Without Router: All routes are in one giant app.js file (messy).
+  - With Router: Routes are split into logical files (users, products, orders).
+  - Keeps code clean, maintainable, and scalable.
+
+How to use Express Router:
+
+  routes/userRoutes.js:
+  ----------------------
+  const express = require('express');
+  const router  = express.Router();
+
+  // All routes here are relative to where they are mounted
+  router.get('/', (req, res) => {
+    res.json({ message: 'Get all users' });
+  });
+
+  router.get('/:id', (req, res) => {
+    res.json({ message: `Get user ${req.params.id}` });
+  });
+
+  router.post('/', (req, res) => {
+    res.json({ message: 'Create user' });
+  });
+
+  router.put('/:id', (req, res) => {
+    res.json({ message: `Update user ${req.params.id}` });
+  });
+
+  router.delete('/:id', (req, res) => {
+    res.json({ message: `Delete user ${req.params.id}` });
+  });
+
+  module.exports = router;
+
+  app.js:
+  --------
+  const express    = require('express');
+  const app        = express();
+  const userRoutes = require('./routes/userRoutes');
+
+  app.use(express.json());
+  app.use('/users', userRoutes);   // Mounted at /users
+
+  // Actual endpoints:
+  // GET    /users
+  // GET    /users/:id
+  // POST   /users
+  // PUT    /users/:id
+  // DELETE /users/:id
+
+  app.listen(3000);
+
+Router with Middleware:
+
+  // Apply middleware only to this router
+  router.use((req, res, next) => {
+    console.log('User route accessed');
+    next();
+  });
+
+
+---------------------------------------------------------
+4. Complete Express Workflow
+---------------------------------------------------------
+
+This describes the full lifecycle of an Express application:
+
+STEP 1 — Client sends a request
+  A browser or API client sends an HTTP request (GET, POST, etc.) to the server.
+
+STEP 2 — Express receives the request
+  Node.js HTTP server receives the request and passes it to Express.
+
+STEP 3 — Middleware chain executes (in order)
+  Each app.use() middleware runs one by one:
+    a. Built-in: express.json() parses the body
+    b. Third-party: morgan() logs the request
+    c. Custom: authMiddleware() checks JWT token
+    d. Each calls next() to pass to the next middleware
+
+STEP 4 — Route matching
+  Express checks routes in order. The FIRST matching route handles the request.
+  e.g., app.get('/users/:id', ...) matches GET /users/42
+
+STEP 5 — Route handler executes
+  The callback function runs:
+    - Reads req.params, req.query, req.body
+    - Interacts with database (MongoDB, MySQL, etc.)
+    - Processes business logic
+
+STEP 6 — Response sent to client
+  res.json(), res.send(), res.render(), res.redirect() sends data back.
+
+STEP 7 — Error handling (if error occurred)
+  If any middleware calls next(err) or throws, Express skips to the
+  error-handling middleware (4 params: err, req, res, next).
+
+VISUAL DIAGRAM:
+
+  Client Request
+       |
+       v
+  [express.json()]         ← Built-in middleware (parse body)
+       |
+       v
+  [morgan()]               ← Third-party middleware (logging)
+       |
+       v
+  [authMiddleware()]       ← Custom middleware (JWT check)
+       |
+       v
+  [Route: GET /users/:id]  ← Route matching
+       |
+       v
+  [Route Handler]          ← Query DB, process logic
+       |
+       v
+  [res.json(data)]         ← Send response to client
+       |
+       v (if error anywhere above)
+  [Error Handler]          ← Centralized error response
+
+Complete working example:
+
+  const express    = require('express');
+  const morgan     = require('morgan');
+  const app        = express();
+
+  // Built-in middleware
+  app.use(express.json());
+  app.use(express.static('public'));
+
+  // Third-party middleware
+  app.use(morgan('dev'));
+
+  // Custom middleware
+  app.use((req, res, next) => {
+    req.requestTime = new Date().toISOString();
+    next();
+  });
+
+  // Routes
+  app.get('/', (req, res) => {
+    res.json({ message: 'Home', time: req.requestTime });
+  });
+
+  app.get('/users/:id', (req, res) => {
+    res.json({ userId: req.params.id });
+  });
+
+  // 404 handler (no route matched)
+  app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+  });
+
+  // Error handling middleware
+  app.use((err, req, res, next) => {
+    console.error(err.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  });
+
+  app.listen(3000, () => console.log('Server running on port 3000'));
+
+=========================================================
+  END OF EXPRESS NOTES
+=========================================================
