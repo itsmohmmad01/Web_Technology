@@ -1,0 +1,51 @@
+<h2>📋 Student List</h2>
+
+<!-- THEORY SECTION -->
+<div class="theory-box">
+  <h3>📘 Angular Concepts Used</h3>
+
+  <p>
+    <b>Data Binding:</b>
+    Displays dynamic data using interpolation syntax
+    <code>{{ '{{ }}' }}</code>
+  </p>
+
+  <p>
+    <b>Structural Directive (*ngFor):</b>
+    Used to loop through student array and display rows.
+  </p>
+
+  <p>
+    <b>TypeScript:</b>
+    Student interface defines strong type structure for data safety.
+  </p>
+
+  <p>
+    <b>Service:</b>
+    StudentService shares data between components.
+  </p>
+</div>
+
+<!-- BUTTON -->
+<a routerLink="/add" class="btn">➕ Add Student</a>
+
+<!-- TABLE -->
+<table class="student-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Course</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let s of students">
+      <td>{{ s.id }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.age }}</td>
+      <td>{{ s.course }}</td>
+    </tr>
+  </tbody>
+</table>

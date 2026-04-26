@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOM Activity — Remove Images on Click</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f2f5; }
+    h2   { color: #333; }
+    p    { color: #555; font-size: 14px; }
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .img-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .img-card:hover { transform: scale(1.04); }
+    .img-card img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+    .badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      background: rgba(255,0,0,0.8);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    #reset-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    #reset-btn:hover { background: #357abd; }
+    #status { margin-top: 12px; color: #888; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<h2>DOM Activity — Remove Images on Click (jQuery)</h2>
+<p>Click any image to remove it. Refresh the page to restore all images.</p>
+
+<div id="gallery"></div>
+<button id="reset-btn">Reset (Restore All)</button>
+<p id="status"></p>
+
+<script>
+  // ── Image data ───────────────────────────────────────────
+  const images = [
+    { src: "https://picsum.photos/seed/dog/300/300",    label: "Dog"     },
+    { src: "https://picsum.photos/seed/cat/300/300",    label: "Cat"     },
+    { src: "https://picsum.photos/seed/bird/300/300",   label: "Bird"    },
+    { src: "https://picsum.photos/seed/forest/300/300", label: "Forest"  },
+    { src: "https://picsum.photos/seed/city/300/300",   label: "City"    },
+    { src: "https://picsum.photos/seed/ocean/300/300",  label: "Ocean"   },
+  ];
+
+  // ── Build gallery ────────────────────────────────────────
+  function buildGallery() {
+    const $gallery = $("#gallery").empty();
+
+    images.forEach((img, i) => {
+      const $card = $("<div>").addClass("img-card");
+      const $img  = $("<img>").attr({ src: img.src, alt: img.label, loading: "lazy" });
+      const $badge = $("<span>").addClass("badge").text(img.label);
+
+      // Click to remove — jQuery event
+      $card.on("click", function () {
+        $(this).fadeOut(300, function () {
+          $(this).remove();
+          updateStatus();
+        });
+      });
+
+      $card.append($img, $badge);
+      $gallery.append($card);
+    });
+
+    updateStatus();
+  }
+
+  function updateStatus() {
+    const remaining = $("#gallery .img-card").length;
+    $("#status").text(
+      remaining > 0
+        ? `${remaining} image(s) visible. Click an image to remove it.`
+        : "All images removed! Click Reset to restore."
+    );
+  }
+
+  // ── Reset button ─────────────────────────────────────────
+  $("#reset-btn").on("click", function () {
+    buildGallery();
+  });
+
+  // ── Init ─────────────────────────────────────────────────
+  $(document).ready(function () {
+    buildGallery();
+  });
+</script>
+
+<!-- 
+  jQuery notes:
+  $()           → jQuery function, selects elements (like querySelectorAll)
+  $("<div>")    → Creates a new DOM element
+  .addClass()   → Adds a CSS class
+  .attr()       → Sets HTML attributes
+  .on()         → Attaches event listeners
+  .fadeOut()    → Animated fade, then runs callback
+  .remove()     → Removes element from DOM
+  .empty()      → Clears inner HTML
+  .text()       → Sets text content
+  .append()     → Adds children to an element
+-->
+</body>
+</html>

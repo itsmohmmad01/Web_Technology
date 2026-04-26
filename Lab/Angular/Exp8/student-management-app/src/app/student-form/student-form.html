@@ -1,0 +1,43 @@
+<h2>📝 Add Student</h2>
+
+<!-- THEORY SECTION -->
+<div class="theory-box">
+  <h3>📘 Angular Concepts Used</h3>
+
+  <p><b>Two-way Binding (ngModel):</b> Syncs input fields with TypeScript variables in real time.</p>
+
+  <p><b>Event Binding (ngSubmit):</b> Triggers addStudent() when form is submitted.</p>
+
+  <p><b>Template-driven Forms:</b> Uses Angular form validation like required and ngForm.</p>
+
+  <p><b>TypeScript Interface:</b> Ensures strong typing for Student data structure.</p>
+</div>
+
+<!-- FORM -->
+<form (ngSubmit)="addStudent()" #studentForm="ngForm" class="form-box">
+
+  <div class="input-group">
+    <label>ID</label>
+    <input type="number" [(ngModel)]="student.id" name="id" required placeholder="Enter ID" />
+  </div>
+
+  <div class="input-group">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="student.name" name="name" required placeholder="Enter Name" />
+  </div>
+
+  <div class="input-group">
+    <label>Age</label>
+    <input type="number" [(ngModel)]="student.age" name="age" required placeholder="Enter Age" />
+  </div>
+
+  <div class="input-group">
+    <label>Course</label>
+    <input type="text" [(ngModel)]="student.course" name="course" required placeholder="Enter Course" />
+  </div>
+
+  <button type="submit" [disabled]="studentForm.invalid">
+    ➕ Add Student
+  </button>
+
+</form>

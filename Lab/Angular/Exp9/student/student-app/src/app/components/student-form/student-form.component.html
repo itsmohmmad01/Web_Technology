@@ -1,0 +1,88 @@
+<div class="form-container">
+  <div class="form-header">
+    <a routerLink="/students" class="back-link">← Back to List</a>
+    <h1 class="form-title">{{ isEditMode ? '✏️ Edit Student' : '➕ Add New Student' }}</h1>
+    <p class="form-subtitle">{{ isEditMode ? 'Update student information' : 'Fill in the details below to add a new student' }}</p>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" formControlName="name" class="form-control"
+            [class.error]="submitted && f['name'].errors" placeholder="e.g. Aarav Sharma" />
+          <div class="error-msg" *ngIf="submitted && f['name'].errors">
+            <span *ngIf="f['name'].errors?.['required']">Name is required.</span>
+            <span *ngIf="f['name'].errors?.['minlength']">Name must be at least 3 characters.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" formControlName="email" class="form-control"
+            [class.error]="submitted && f['email'].errors" placeholder="e.g. aarav@example.com" />
+          <div class="error-msg" *ngIf="submitted && f['email'].errors">
+            <span *ngIf="f['email'].errors?.['required']">Email is required.</span>
+            <span *ngIf="f['email'].errors?.['email']">Enter a valid email.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Course *</label>
+          <select formControlName="course" class="form-control" [class.error]="submitted && f['course'].errors">
+            <option value="">-- Select Course --</option>
+            <option *ngFor="let c of courses" [value]="c">{{ c }}</option>
+          </select>
+          <div class="error-msg" *ngIf="submitted && f['course'].errors">Course is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Grade *</label>
+          <select formControlName="grade" class="form-control" [class.error]="submitted && f['grade'].errors">
+            <option value="">-- Select Grade --</option>
+            <option *ngFor="let g of grades" [value]="g">{{ g }}</option>
+          </select>
+          <div class="error-msg" *ngIf="submitted && f['grade'].errors">Grade is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Age *</label>
+          <input type="number" formControlName="age" class="form-control"
+            [class.error]="submitted && f['age'].errors" placeholder="e.g. 21" />
+          <div class="error-msg" *ngIf="submitted && f['age'].errors">
+            <span *ngIf="f['age'].errors?.['required']">Age is required.</span>
+            <span *ngIf="f['age'].errors?.['min'] || f['age'].errors?.['max']">Age must be between 16 and 60.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Enrollment Date *</label>
+          <input type="date" formControlName="enrollmentDate" class="form-control"
+            [class.error]="submitted && f['enrollmentDate'].errors" />
+          <div class="error-msg" *ngIf="submitted && f['enrollmentDate'].errors">Date is required.</div>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Status *</label>
+          <div class="radio-group">
+            <label *ngFor="let s of statuses" class="radio-option"
+              [class.selected]="studentForm.get('status')?.value === s">
+              <input type="radio" formControlName="status" [value]="s" />
+              {{ s }}
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/students" class="btn-cancel">Cancel</a>
+        <button type="submit" class="btn-submit">
+          {{ isEditMode ? '💾 Update Student' : '✅ Add Student' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

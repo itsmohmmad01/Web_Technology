@@ -1,0 +1,47 @@
+<div class="detail-container" *ngIf="student">
+  <div class="detail-header">
+    <a routerLink="/students" class="back-link">← Back to List</a>
+    <div class="header-actions">
+      <a [routerLink]="['/students/edit', student.id]" class="btn-edit">✏️ Edit</a>
+      <button (click)="deleteStudent()" class="btn-delete">🗑 Delete</button>
+    </div>
+  </div>
+
+  <div class="detail-card">
+    <div class="card-hero">
+      <div class="hero-avatar">{{ student.name.charAt(0) }}</div>
+      <div class="hero-info">
+        <h1>{{ student.name }}</h1>
+        <p class="hero-email">{{ student.email }}</p>
+        <span class="status-badge" [ngClass]="getStatusClass(student.status)">{{ student.status }}</span>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="detail-label">🎓 Course</span>
+        <span class="detail-value">{{ student.course }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">📊 Grade</span>
+        <span class="detail-value grade-value">{{ student.grade }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">🎂 Age</span>
+        <span class="detail-value">{{ student.age }} years</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">🆔 Student ID</span>
+        <span class="detail-value">#{{ student.id }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">📅 Enrolled On</span>
+        <span class="detail-value">{{ student.enrollmentDate | date:'longDate' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">📧 Email</span>
+        <span class="detail-value">{{ student.email }}</span>
+      </div>
+    </div>
+  </div>
+</div>

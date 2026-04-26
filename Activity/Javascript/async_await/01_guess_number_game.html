@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Async Await — Guess the Number Game</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 60px auto; padding: 20px; background: #1a1a2e; color: #eee; border-radius: 12px; }
+    h2   { color: #e94560; text-align: center; }
+    input[type="number"] { width: 100%; padding: 12px; font-size: 18px; border-radius: 8px; border: none; margin: 12px 0; text-align: center; }
+    button { width: 100%; padding: 12px; background: #e94560; color: #fff; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #c73652; }
+    #log  { margin-top: 20px; background: #16213e; padding: 16px; border-radius: 8px; min-height: 80px; font-size: 14px; line-height: 1.8; }
+    #status { text-align: center; margin-top: 12px; font-weight: bold; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<h2>🎯 Guess the Number</h2>
+<p style="text-align:center; color:#aaa;">A secret number between 1 and 100 has been chosen. Can you guess it?</p>
+
+<input type="number" id="guessInput" placeholder="Enter your guess (1–100)" min="1" max="100" />
+<button id="guessBtn">Submit Guess</button>
+<div id="status"></div>
+<div id="log"></div>
+<button id="restartBtn" style="margin-top:10px; background:#0f3460; display:none">🔄 Play Again</button>
+
+<script>
+  // ── Async helper: simulate a delay ───────────────────────
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // ── Game state ───────────────────────────────────────────
+  let secret, attempts, gameOver;
+
+  function initGame() {
+    secret   = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    gameOver = false;
+    document.getElementById("log").innerHTML    = "🎮 Game started! Make your first guess.";
+    document.getElementById("status").textContent = "";
+    document.getElementById("restartBtn").style.display = "none";
+    document.getElementById("guessBtn").disabled  = false;
+    document.getElementById("guessInput").value  = "";
+    document.getElementById("guessInput").disabled = false;
+  }
+
+  // ── Main async game logic ─────────────────────────────────
+  async function handleGuess() {
+    if (gameOver) return;
+
+    const input = document.getElementById("guessInput");
+    const guess = parseInt(input.value);
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      document.getElementById("status").textContent = "⚠️ Enter a number between 1 and 100.";
+      return;
+    }
+
+    attempts++;
+    document.getElementById("guessBtn").disabled = true;
+    document.getElementById("status").textContent = "⏳ Checking your guess...";
+
+    await delay(600); // simulate async processing
+
+    const log = document.getElementById("log");
+    let msg;
+
+    if (guess === secret) {
+      msg = `✅ Correct! The number was <b>${secret}</b>. You got it in <b>${attempts}</b> attempt(s)!`;
+      document.getElementById("status").textContent = "🎉 You Win!";
+      gameOver = true;
+      document.getElementById("restartBtn").style.display = "block";
+      document.getElementById("guessInput").disabled = true;
+    } else if (attempts >= 10) {
+      msg = `❌ Game Over! The number was <b>${secret}</b>. Better luck next time!`;
+      document.getElementById("status").textContent = "😢 Game Over";
+      gameOver = true;
+      document.getElementById("restartBtn").style.display = "block";
+      document.getElementById("guessInput").disabled = true;
+    } else if (guess < secret) {
+      msg = `📈 Guess #${attempts}: ${guess} — Too LOW! (${10 - attempts} attempts left)`;
+    } else {
+      msg = `📉 Guess #${attempts}: ${guess} — Too HIGH! (${10 - attempts} attempts left)`;
+    }
+
+    log.innerHTML += `<br>${msg}`;
+
+    if (!gameOver) {
+      document.getElementById("guessBtn").disabled = false;
+      input.value = "";
+      input.focus();
+    }
+    document.getElementById("status").textContent = gameOver
+      ? document.getElementById("status").textContent
+      : `Attempt ${attempts}/10`;
+  }
+
+  // ── Events ───────────────────────────────────────────────
+  document.getElementById("guessBtn").addEventListener("click", handleGuess);
+  document.getElementById("restartBtn").addEventListener("click", initGame);
+  document.getElementById("guessInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") handleGuess();
+  });
+
+  initGame();
+</script>
+</body>
+</html>

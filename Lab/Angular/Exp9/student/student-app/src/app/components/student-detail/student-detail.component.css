@@ -1,0 +1,128 @@
+.detail-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: #e94560; }
+
+.header-actions { display: flex; gap: 0.7rem; }
+
+.btn-edit, .btn-delete {
+  padding: 0.5rem 1.1rem;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-edit { background: #fefcbf; color: #744210; }
+.btn-edit:hover { background: #faf089; }
+.btn-delete { background: #fed7d7; color: #9b2c2c; }
+.btn-delete:hover { background: #feb2b2; }
+
+.detail-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.card-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  color: #fff;
+}
+
+.hero-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #e94560;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.hero-info h1 {
+  margin: 0 0 0.3rem;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.hero-email {
+  margin: 0 0 0.6rem;
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.badge-active { background: #c6f6d5; color: #276749; }
+.badge-inactive { background: #fed7d7; color: #9b2c2c; }
+.badge-graduated { background: #e9d8fd; color: #6b46c1; }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.detail-item {
+  padding: 1.3rem 2rem;
+  border-bottom: 1px solid #f0f4f8;
+  border-right: 1px solid #f0f4f8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detail-item:nth-child(even) { border-right: none; }
+.detail-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.detail-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a0aec0;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.grade-value {
+  color: #276749;
+  font-size: 1.2rem;
+}

@@ -1,0 +1,205 @@
+.list-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: #718096;
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #e94560;
+  color: #fff;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: #c73652; }
+
+.filters-bar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 0.8rem;
+  flex: 1;
+  min-width: 220px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.search-icon { font-size: 1rem; margin-right: 0.5rem; }
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 0.65rem 0;
+  font-size: 0.95rem;
+  width: 100%;
+  background: transparent;
+}
+
+.status-filters { display: flex; gap: 0.5rem; }
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  background: #fff;
+  color: #4a5568;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { border-color: #e94560; color: #e94560; }
+.filter-btn.active { background: #e94560; border-color: #e94560; color: #fff; }
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table thead tr {
+  background: #f7fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.student-table th {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-row {
+  border-bottom: 1px solid #f0f4f8;
+  transition: background 0.15s;
+}
+
+.table-row:hover { background: #f7fafc; }
+.table-row:last-child { border-bottom: none; }
+
+.student-table td {
+  padding: 1rem 1.2rem;
+  font-size: 0.93rem;
+  color: #2d3748;
+  vertical-align: middle;
+}
+
+.id-cell { color: #a0aec0; font-weight: 600; }
+
+.student-cell {
+  display: flex !important;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a2e, #e94560);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.student-name { font-weight: 600; color: #1a1a2e; }
+.student-email { font-size: 0.8rem; color: #718096; }
+
+.grade-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.grade-a { background: #c6f6d5; color: #276749; }
+.grade-b { background: #bee3f8; color: #2a69ac; }
+.grade-c { background: #fefcbf; color: #744210; }
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.badge-active { background: #c6f6d5; color: #276749; }
+.badge-inactive { background: #fed7d7; color: #9b2c2c; }
+.badge-graduated { background: #e9d8fd; color: #6b46c1; }
+
+.actions-cell { display: flex; gap: 0.4rem; align-items: center; }
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-view { background: #ebf8ff; }
+.btn-view:hover { background: #bee3f8; }
+.btn-edit { background: #fefcbf; }
+.btn-edit:hover { background: #faf089; }
+.btn-delete { background: #fff5f5; }
+.btn-delete:hover { background: #fed7d7; }
+
+.no-data {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #718096;
+}
+.no-data-icon { font-size: 3rem; margin-bottom: 1rem; }
+.no-data p { margin-bottom: 1.5rem; font-size: 1rem; }

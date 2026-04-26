@@ -1,0 +1,34 @@
+<div class="container">
+  <header>
+    <h1>✅ My Tasks</h1>
+    <span class="badge">{{ remaining }} left</span>
+  </header>
+
+  <div class="input-row">
+    <input
+      [(ngModel)]="newTask"
+      (keyup.enter)="addTodo()"
+      placeholder="Add a new task..."
+      class="task-input"
+    />
+    <button (click)="addTodo()" class="btn-add">Add</button>
+  </div>
+
+  <ul class="todo-list">
+    @for (todo of todos; track todo.id) {
+      <li class="todo-item" [class.done]="todo.done">
+        <input type="checkbox" [checked]="todo.done" (change)="toggle(todo)" />
+        <span class="todo-text">{{ todo.text }}</span>
+        <button class="btn-delete" (click)="remove(todo)">✕</button>
+      </li>
+    } @empty {
+      <li class="empty">No tasks yet. Add one above!</li>
+    }
+  </ul>
+
+  @if (todos.length > remaining) {
+    <div class="footer">
+      <button class="btn-clear" (click)="clearDone()">Clear completed</button>
+    </div>
+  }
+</div>

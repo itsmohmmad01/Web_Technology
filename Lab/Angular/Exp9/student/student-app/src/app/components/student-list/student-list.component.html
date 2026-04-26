@@ -1,0 +1,77 @@
+<div class="list-container">
+  <div class="list-header">
+    <div>
+      <h1 class="page-title">Students</h1>
+      <p class="page-subtitle">{{ filteredStudents.length }} of {{ students.length }} students</p>
+    </div>
+    <a routerLink="/students/new" class="btn-primary">+ Add Student</a>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Search by name, email or course..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        class="search-input"
+      />
+    </div>
+    <div class="status-filters">
+      <button *ngFor="let status of ['All','Active','Inactive','Graduated']"
+        [class.active]="filterStatus === status"
+        (click)="onFilterChange(status)"
+        class="filter-btn">
+        {{ status }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper">
+    <table class="student-table" *ngIf="filteredStudents.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student</th>
+          <th>Course</th>
+          <th>Grade</th>
+          <th>Age</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of filteredStudents; let i = index" class="table-row">
+          <td class="id-cell">{{ student.id }}</td>
+          <td class="student-cell">
+            <div class="avatar">{{ student.name.charAt(0) }}</div>
+            <div>
+              <div class="student-name">{{ student.name }}</div>
+              <div class="student-email">{{ student.email }}</div>
+            </div>
+          </td>
+          <td>{{ student.course }}</td>
+          <td><span class="grade-badge" [ngClass]="getGradeClass(student.grade)">{{ student.grade }}</span></td>
+          <td>{{ student.age }}</td>
+          <td><span class="status-badge" [ngClass]="getStatusClass(student.status)">{{ student.status }}</span></td>
+          <td class="actions-cell">
+            <a [routerLink]="['/students', student.id]" class="btn-icon btn-view" title="View">👁</a>
+            <a [routerLink]="['/students/edit', student.id]" class="btn-icon btn-edit" title="Edit">✏️</a>
+            <button (click)="deleteStudent(student.id, $event)" class="btn-icon btn-delete" title="Delete">🗑</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noData>
+      <div class="no-data">
+        <div class="no-data-icon">📭</div>
+        <p>No students found matching your filters.</p>
+        <a routerLink="/students/new" class="btn-primary">Add First Student</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+.form-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.form-header {
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.back-link:hover { color: #e94560; }
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.form-subtitle {
+  color: #718096;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.full-width { grid-column: 1 / -1; }
+
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.form-control {
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  color: #1a1a2e;
+  background: #fff;
+}
+.form-control:focus { border-color: #0f3460; }
+.form-control.error { border-color: #e94560; }
+
+.error-msg {
+  color: #e94560;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.2s;
+}
+.radio-option input { display: none; }
+.radio-option.selected { border-color: #0f3460; background: #ebf4ff; color: #0f3460; }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f4f8;
+}
+
+.btn-cancel {
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  color: #4a5568;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+.btn-cancel:hover { background: #f7fafc; }
+
+.btn-submit {
+  padding: 0.65rem 1.6rem;
+  border-radius: 8px;
+  border: none;
+  background: #e94560;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-submit:hover { background: #c73652; }
