@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebSocket Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      background: #fff;
+      width: 480px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .chat-header {
+      background: #075e54;
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-header h2 { font-size: 18px; }
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+    }
+    .status-dot.connected { background: #4caf50; }
+
+    /* ── Status bar ── */
+    #statusBar {
+      text-align: center;
+      font-size: 12px;
+      padding: 6px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      display: none;
+    }
+
+    /* ── Message list ── */
+    #messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      min-height: 340px;
+      max-height: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #e5ddd5;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    /* Messages from ME */
+    .msg.mine {
+      align-self: flex-end;
+      background: #dcf8c6;
+      border-bottom-right-radius: 2px;
+    }
+
+    /* Messages from OTHERS */
+    .msg.other {
+      align-self: flex-start;
+      background: #fff;
+      border-bottom-left-radius: 2px;
+    }
+    .msg.other .sender {
+      font-size: 11px;
+      font-weight: bold;
+      color: #075e54;
+      margin-bottom: 2px;
+    }
+
+    /* System messages */
+    .msg.system {
+      align-self: center;
+      background: rgba(0,0,0,0.08);
+      color: #555;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Input area ── */
+    .chat-input {
+      display: flex;
+      padding: 10px 12px;
+      gap: 8px;
+      border-top: 1px solid #ddd;
+      background: #f0f0f0;
+    }
+
+    #messageInput {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 24px;
+      outline: none;
+      font-size: 14px;
+    }
+    #messageInput:focus { border-color: #075e54; }
+
+    #sendBtn {
+      background: #075e54;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      cursor: pointer;
+      font-size: 18px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #sendBtn:hover { background: #128c7e; }
+    #sendBtn:disabled { background: #aaa; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="status-dot" id="statusDot"></div>
+    <h2>💬 WebSocket Chat</h2>
+  </div>
+
+  <!-- Status bar -->
+  <div id="statusBar"></div>
+
+  <!-- Messages -->
+  <ul id="messages"></ul>
+
+  <!-- Input -->
+  <div class="chat-input">
+    <input
+      type="text"
+      id="messageInput"
+      placeholder="Type a message..."
+      onkeydown="if(event.key==='Enter') sendMessage()"
+      disabled
+    />
+    <button id="sendBtn" onclick="sendMessage()" disabled>➤</button>
+  </div>
+
+</div>
+
+<script>
+  // ── Connect to WebSocket server ──────────────────────────────────────────
+  const ws = new WebSocket("ws://localhost:3000");
+
+  let myId = null;   // Will be set from welcome message
+
+  const messagesEl   = document.getElementById("messages");
+  const inputEl      = document.getElementById("messageInput");
+  const sendBtn      = document.getElementById("sendBtn");
+  const statusDot    = document.getElementById("statusDot");
+  const statusBar    = document.getElementById("statusBar");
+
+  // ── Connection opened ────────────────────────────────────────────────────
+  ws.onopen = () => {
+    console.log("✅ Connected to WebSocket server");
+    statusDot.classList.add("connected");
+    inputEl.disabled = false;
+    sendBtn.disabled = false;
+    inputEl.placeholder = "Type a message...";
+  };
+
+  // ── Message received ─────────────────────────────────────────────────────
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.type === "system") {
+      // Extract our own ID from welcome message
+      if (data.text.startsWith("Welcome")) {
+        const match = data.text.match(/Client #(\d+)/);
+        if (match) myId = `Client #${match[1]}`;
+      }
+      addSystemMessage(data.text);
+
+    } else if (data.type === "chat") {
+      const isMe = data.sender === myId;
+      addChatMessage(data.sender, data.text, isMe);
+    }
+  };
+
+  // ── Connection closed ────────────────────────────────────────────────────
+  ws.onclose = () => {
+    statusDot.classList.remove("connected");
+    inputEl.disabled = true;
+    sendBtn.disabled = true;
+    inputEl.placeholder = "Disconnected from server.";
+    addSystemMessage("❌ Disconnected from server. Please restart server.js and refresh.");
+  };
+
+  // ── Connection error ─────────────────────────────────────────────────────
+  ws.onerror = () => {
+    addSystemMessage("⚠️ Could not connect. Is server.js running?");
+  };
+
+  // ── Send message ─────────────────────────────────────────────────────────
+  function sendMessage() {
+    const text = inputEl.value.trim();
+    if (!text || ws.readyState !== WebSocket.OPEN) return;
+    ws.send(text);
+    inputEl.value = "";
+    inputEl.focus();
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  function addChatMessage(sender, text, isMe) {
+    const li = document.createElement("li");
+    li.classList.add("msg", isMe ? "mine" : "other");
+    li.style.listStyle = "none";
+
+    if (!isMe) {
+      const senderEl = document.createElement("div");
+      senderEl.className = "sender";
+      senderEl.textContent = sender;
+      li.appendChild(senderEl);
+    }
+
+    const textEl = document.createElement("div");
+    textEl.textContent = text;
+    li.appendChild(textEl);
+
+    messagesEl.appendChild(li);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function addSystemMessage(text) {
+    const li = document.createElement("li");
+    li.className = "msg system";
+    li.style.listStyle = "none";
+    li.textContent = text;
+    messagesEl.appendChild(li);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+</script>
+
+</body>
+</html>

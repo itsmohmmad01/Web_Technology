@@ -1,0 +1,31 @@
+
+It is an reletional database(mysql,postgrade,sqlserver)
+
+Activity:
+write a query for create a table , insert, select , update, delete
+=====================================================================================================
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    course VARCHAR(50)
+);
+
+INSERT INTO student (id, name, age, course) VALUES (1, 'Ali', 20, 'BCA');
+INSERT INTO student (id, name, age, course) VALUES (2, 'Sara', 22, 'BBA');
+INSERT INTO student (id, name, age, course) VALUES (3, 'John', 21, 'BSc');
+
+UPDATE student
+SET age = 23, course = 'MBA'
+WHERE id = 2;
+
+SELECT * FROM student;
+====================================================================================================
+
+
+.Connecting he node.js with sql databses
+-we use node.js to connect backend
+
+.Post--app.post()
+
+.

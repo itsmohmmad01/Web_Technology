@@ -1,0 +1,12 @@
+{
+  "name": "websocket-demo",
+  "version": "1.0.0",
+  "description": "Real-time communication using WebSocket in Node.js (Experiment 13)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
+  }
+}

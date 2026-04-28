@@ -1,0 +1,98 @@
+React Activities Notes (Up to Activity 4)
+
+1. Activity: Understand Types of Components
+React components are reusable building blocks of a React app.
+
+A. Functional Components
+- JavaScript functions that return JSX.
+- Easy to write and commonly used.
+Example:
+function Welcome() {
+  return <h1>Hello</h1>;
+}
+
+B. Class Components
+- ES6 classes that extend React.Component.
+- Use render() method.
+Example:
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello</h1>;
+  }
+}
+
+Difference:
+- Functional components are simpler.
+- Class components were used earlier for state/lifecycle.
+
+2. Activity: Understand Props
+Props means properties.
+- Used to pass data from parent component to child component.
+- Props are read-only.
+
+Example:
+function Student(props) {
+  return <h1>Name: {props.name}</h1>;
+}
+
+<Student name="Ali" />
+
+Benefits:
+- Reusable components
+- Dynamic data display
+
+3. Activity: Understand State Concept (2 Examples)
+State is data managed inside a component.
+When state changes, UI updates automatically.
+
+Use useState Hook:
+import { useState } from "react";
+
+Example 1: Counter
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+
+Example 2: Show/Hide Text
+function Toggle() {
+  const [show, setShow] = useState(true);
+  return (
+    <div>
+      <button onClick={() => setShow(!show)}>Toggle</button>
+      {show && <p>Hello User</p>}
+    </div>
+  );
+}
+
+4. Activity: Understand Hooks Concept
+Hooks are special React functions used in functional components.
+
+Common Hooks:
+
+A. useState
+- Used to manage state.
+
+B. useEffect
+- Used for side effects like API calls, timers.
+
+Example:
+useEffect(() => {
+  console.log("Component Loaded");
+}, []);
+
+C. useRef
+- Access DOM elements directly.
+
+D. useContext
+- Share data globally without props drilling.
+
+Advantages of Hooks:
+- Cleaner code
+- Reusable logic
+- Easier state management
+- No need for class components
